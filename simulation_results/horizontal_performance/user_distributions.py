@@ -235,11 +235,11 @@ def pair_near_far_points(network_radius, samples, plot=False):
 
         # 绘制近点（红色星号）
         plt.scatter(samples_near[:, 0], samples_near[:, 1],
-                    c='red', s=100, marker='*', label='Near points')
+                    c='red', s=100, marker='*', label='Near Users')
 
         # 绘制远点（蓝色圆圈）
         plt.scatter(samples_far[:, 0], samples_far[:, 1],
-                    c='blue', s=100, marker='o', label='Far points')
+                    c='blue', s=100, marker='o', label='Far Users')
 
         # plot the circle
         circle = plt.Circle((0, 0), network_radius, color='black', fill=False, linestyle='--')

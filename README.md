@@ -17,7 +17,7 @@ pip install -e .
 
 To run the simulation, just run the following cmd:
 ```bash
-python algorithms/main_algorithms/run_simulations.py
+python main_algorithms/run_simulations.py
 ```
 This will perform the following tasks:
 #### 1). Generate Terrestrial Users with Different Distributions
