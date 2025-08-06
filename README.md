@@ -3,10 +3,8 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue)](https://www.python.org/)
 
-This repository contains the simulation code for the paper:  
-**"Computationally Efficient 3D Deployment for NOMA-UAV Networks with Resource Optimization: 
-A Bayesian Approach"**  
-*(Submitted to IEEE INFOCOM, 2026)*
+This repository contains the simulation code for the B<sup>3</sup>CD Framework for NOMA-UAV.
+
 
 
 ## 🚀 Quick Start
