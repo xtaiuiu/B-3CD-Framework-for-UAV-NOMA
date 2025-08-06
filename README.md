@@ -22,7 +22,7 @@ python main_algorithms/run_simulations.py
 This will perform the following tasks:
 #### 1). Generate Terrestrial Users with Different Distributions
 First, we plot 4 kinds of user distributions, and mark the near-user centroids and optimal horizontal UAV positions
-![User Distributions](simulation_results/distribution.png)
+![User Distributions](simulation_results/distribution.jpg)
 
 ```bash
 ├── simulation_results
@@ -40,10 +40,10 @@ Second, we use the road-based distributions to generate a NOMA-enabled UAWN with
 ```
 
 The following figures show the user distribution and density.
-![User PDE](simulation_results/UE_road_pde.png)
+![User PDE](simulation_results/UE_road_pde.jpg)
 
 Then the near users and far users are paired by the nearest distance principle, as shown below.
-![User Pair](simulation_results/UE_road_pairing.png)
+![User Pair](simulation_results/UE_road_pairing.jpg)
 
 
 #### 3). BCD algorithm for Fixed (x, y)
