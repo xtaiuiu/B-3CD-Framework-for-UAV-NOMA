@@ -180,7 +180,7 @@ import numpy as np
 from scipy.spatial import distance
 
 
-def pair_near_far_points(samples, plot=False):
+def pair_near_far_points(network_radius, samples, plot=False):
     """
     将样本点分为近点和远点，并为每个近点配对最近的远点
 
@@ -241,6 +241,10 @@ def pair_near_far_points(samples, plot=False):
         plt.scatter(samples_far[:, 0], samples_far[:, 1],
                     c='blue', s=100, marker='o', label='Far points')
 
+        # plot the circle
+        circle = plt.Circle((0, 0), network_radius, color='black', fill=False, linestyle='--')
+        ax.add_patch(circle)
+
         # 添加箭头连线
         for near_pt, far_pt in zip(samples_near, samples_far):
             ax.annotate("", xy=far_pt, xytext=near_pt,
@@ -270,7 +274,7 @@ def create_ue_set_with_distribution(num, network_radius, tilde_R_low, tilde_R_hi
     # num is the number of all users, not the number of near users
     UE_set = []
     samples = distribution(network_radius, num, plot)
-    paired_samples = pair_near_far_points(samples, plot)
+    paired_samples = pair_near_far_points(network_radius, samples, plot)
     for j in range(num):
         x = paired_samples[j][0]
         y = paired_samples[j][1]

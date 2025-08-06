@@ -1,4 +1,4 @@
-# The DQCO Framework for UAWN Slicing - Simulation Code
+# The B<sup>3</sup>CD Framework for NOMA-UAV - Simulation Code
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue)](https://www.python.org/)
@@ -22,35 +22,54 @@ To run the simulation, just run the following cmd:
 python algorithms/main_algorithms/run_simulations.py
 ```
 This will perform the following tasks:
-#### 1). Create a simulated UAWN
-A default UAV-aided Wireless Network (UAWN) is created for simulation, which contains 4 network slices, each of which has 10 UEs.
-
-![The simulated UAWN](algorithms/main_algorithms/Simulated_UAWN.png)
-
-#### 2). Solve the UAV Slicing Problem (USP) by using the DQCO framework
-
-Solve the problem by using quasi-subgradient projection algorithm (QPA), where in the projection
-is performed by using the Proj-KKT algorithm.
-
-Note that the ORA is not performed in run_simulations.
-
-To see the realization of Algorithm 1~3, please refer to the following codes.
+#### 1). Generate Terrestrial Users with Different Distributions
+First, we plot 4 kinds of user distributions, and mark the near-user centroids and optimal horizontal UAV positions
+![User Distributions](simulation_results/distribution.png)
 
 ```bash
-├── algorithms
-├── main_algorithms
-├── ├── run_simulations.py              # QPA algorithm   
-│   ├── projection.py                   # Proj-KKT algorithm
-│   │   ├── rounding/
-│   │       └── rounding_algorithms.py  # ORA rounding
+├── simulation_results
+├── ├── horizontal_performance
+│   ├──└──user_distributions.py         # User Generation
 ```
 
-#### 3). Plot the Convergence Curve
-Finally, the script will show the best function value, as well as the convergence curve of QPA.
+#### 2). Generate a UAWN with Road-Based Distributed Users
 
-![The simulated UAWN](algorithms/main_algorithms/Convergence_curve.png)
+Second, we use the road-based distributions to generate a NOMA-enabled UAWN with a set of 40 UEs.
+
+```bash
+├── scenarios
+├── ├── scenario_creators.py            # Create the UAWN
+```
+
+The following figures show the user distribution and density.
+![User PDE](simulation_results/UE_road_pde.png)
+
+Then the near users and far users are paired by the nearest distance principle, as shown below.
+![User Pair](simulation_results/UE_road_pairing.png)
 
 
+#### 3). BCD algorithm for Fixed (x, y)
+Third, run the BCD algorithm for fixed UAV's horizontal position (x, y) = (0, 0), and plot the convergence curve of
+the BCD algorithm
+
+
+
+```bash
+├── main_algorithms
+├── ├── bcd_algorithm.py            # The BCD algorithm
+```
+
+![BCD Convergence](simulation_results/BCD_convergence_curve.png)
+
+#### 4). Bayesian optimization (BO) for Horizontal UAV Deployment
+Finally, run the Bayesian optimization (BO) to optimize the horizontal UAV deployment, and plot the convergence curve
+of BO.
+
+```bash
+├── main_algorithms
+├── ├── optimize_uav_position_Bayesian.py            # The B^3CD algorithm
+```
+![B3CD Convergence](simulation_results/B3CD_convergence_curve.png)
 ## 🤝 Contributing
 Pull requests are welcome. For major changes, please open an issue first.
 

@@ -1,16 +1,38 @@
 import time
 
-import GPyOpt
 import numpy as np
+from GPyOpt.methods import BayesianOptimization
 from matplotlib import pyplot as plt
+from matplotlib.pyplot import grid, savefig
 from pyinstrument import Profiler
+import GPyOpt
 
 from main_algorithms.bcd_algorithm import bcd
 from scenarios.scenario_creators import load_scenario
 
+class MyBayesianOptimization(BayesianOptimization):
+    # an override BO class, which only alters the plotting functions
+    def plot_convergence(self, filename=None):
+        '''
+        Plots to evaluate the convergence of standard Bayesian optimization algorithms
+        '''
+        Xdata, best_Y = self.X, self.Y_best
+        n = Xdata.shape[0]
+        plt.figure(figsize=(8, 6))
+        # Estimated m(x) at the proposed sampling points
+        plt.plot(list(range(n)), -best_Y, '-o')
+        plt.title(r'Convergence of $B^3CD$')
+        plt.xlabel('Iteration')
+        plt.ylabel('Best Objective Value')
+        grid(True)
+
+        if filename != None:
+            savefig(filename)
+        else:
+            plt.show()
 
 
-def optimize_horizontal_Bayesian(sc, eps=1e-6):
+def optimize_horizontal_Bayesian(sc, eps=1e-6, filename=None):
     def bcd_wrapper(X):  # a wrapper function for the bcd algorithm. As the GPyOpt library expects a function of the form f(x),
         # where X is an 2-dimensional array, and this library does not accept functions with extra arguments, we use a wrapper
 
@@ -52,12 +74,12 @@ def optimize_horizontal_Bayesian(sc, eps=1e-6):
     ])
     Y = bcd_wrapper(X)
     #print(Y)
-    myProblem = GPyOpt.methods.BayesianOptimization(bcd_wrapper, bounds, X=X, Y=Y, normalize_Y=True, exact_feval=True)
+    myProblem = MyBayesianOptimization(bcd_wrapper, bounds, X=X, Y=Y, normalize_Y=True, exact_feval=True)
     myProblem.run_optimization(max_iter=15, eps=1e-8, report_file='report.txt')
     myProblem.save_report('saved_report.txt')
     myProblem.save_evaluations("saved_evaluations.csv")
-    myProblem.plot_acquisition(label_x="x", label_y="y")
-    myProblem.plot_convergence()
+    # myProblem.plot_acquisition(label_x="x", label_y="y")
+    myProblem.plot_convergence(filename=filename)
     plt.show()
 
     # print(f"runtime without X and Y in {time.perf_counter() - t} seconds")
@@ -78,7 +100,7 @@ if __name__ == "__main__":
     # sc.uav.u_x, sc.uav.u_y = 0, 0
     # f_cell_center = bcd(sc)  # the objective function at the center of the cell.
 
-    f_Bayes, x_Bayes = optimize_horizontal_Bayesian(sc)
+    f_Bayes, x_Bayes = optimize_horizontal_Bayesian(sc, filename='convergence_curve.png')
     # print(f"f_center = {f_center}, f_Bayes = {f_Bayes}, diff = {f_center - f_Bayes}")
     # print(f"f_cell_center = {f_cell_center}, f_Bayes = {f_Bayes}, diff = {f_cell_center - f_Bayes}")
     # print(f"x_center = {sc.get_UEs_center()}, x_Bayes = {x_Bayes}")
