@@ -8,7 +8,7 @@
   <component name="PackageRequirementsSettings">
     <option name="requirementsPath" value="D:\我的坚果云\论文写作区\期刊论文\我的论文\postdoc works\UAV_slicing_hight_with_theta\simulation\requirements.txt" />
     <option name="versionSpecifier" value="Greater or equal (&gt;=x.y.z)" />
-    <option name="modifyBaseFiles" value="true" />
+    <option name="keepMatchingSpecifier" value="false" />
   </component>
   <component name="TestRunnerService">
     <option name="PROJECT_TEST_RUNNER" value="Unittests" />
