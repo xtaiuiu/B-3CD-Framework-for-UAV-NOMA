@@ -53,3 +53,4 @@ Finally, the script will show the best function value, as well as the convergenc
 
 ## 🤝 Contributing
 Pull requests are welcome. For major changes, please open an issue first.
+
